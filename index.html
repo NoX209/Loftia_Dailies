@@ -1,59 +1,24 @@
 <!doctype html>
-<html lang="de">
+<html lang="de" data-day="2026-11-15">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Loftia Dailies 15.11.2026</title>
-  <style>
-    :root { --bg: #f4f7f2; --card: #ffffff; --text: #263a33; --muted: #6b7f77; --accent: #4f8a74; }
-    @media (prefers-color-scheme: dark) {
-      :root { --bg: #17201d; --card: #212d29; --text: #e3ece8; --muted: #93a69f; --accent: #7cc2a6; }
-    }
-    body { margin: 0; padding: 16px; background: var(--bg); color: var(--text);
-           font: 16px/1.5 system-ui, sans-serif; }
-    main { max-width: 40rem; margin: 0 auto; }
-    header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 0 1rem; }
-    h1 { font-size: 1.4rem; margin: 0 0 1rem; }
-    h2 { font-size: 1.15rem; margin: 0 0 .5rem; color: var(--accent); }
-    .blocks { display: grid; grid-template-columns: 1fr; gap: 1.5rem; align-items: start; }
-    /* Two columns: automatically on wide screens, or when chosen with the switch. */
-    @media (min-width: 60rem) {
-      :root:not([data-columns="1"]) main { max-width: 80rem; }
-      :root:not([data-columns="1"]) .blocks { grid-template-columns: 1fr 1fr; }
-    }
-    :root[data-columns="2"] main { max-width: 80rem; }
-    :root[data-columns="2"] .blocks { grid-template-columns: 1fr 1fr; }
-    .buttons { display: flex; gap: .5rem; }
-    .button { font: inherit; font-size: .85rem; padding: .3rem .7rem; border-radius: 999px; cursor: pointer;
-              border: 1px solid var(--accent); background: var(--card); color: var(--accent); white-space: nowrap;
-              text-decoration: none; line-height: 1.5; }
-    h3 { font-size: 1rem; margin: 0 0 .25rem; }
-    section.area, section.note { background: var(--card); border-radius: 10px; padding: .75rem 1rem; margin-bottom: .75rem; }
-    ul { list-style: none; margin: 0; padding: 0; }
-    label { display: flex; gap: .6rem; align-items: baseline; padding: .15rem 0; cursor: pointer; }
-    input:checked + span { text-decoration: line-through; color: var(--muted); }
-    li.item { display: flex; gap: .6rem; align-items: baseline; padding: .15rem 0; }
-    li.item:has(.made:checked) span { color: var(--accent); }
-    li.item:has(.delivered:checked) span { text-decoration: line-through; color: var(--muted); }
-    .legend { font-size: .85rem; color: var(--muted); margin: -.5rem 0 1rem; }
-    .hint { color: var(--muted); }
-    .days { display: flex; flex-wrap: wrap; gap: .4rem .9rem; }
-    .days a { color: var(--accent); }
-  </style>
-  <script>
-    // Apply the saved column mode before the page is drawn, so it does not jump on reload.
-    try {
-      const mode = localStorage.getItem("loftia-dailies/columns");
-      if (mode === "1" || mode === "2") document.documentElement.dataset.columns = mode;
-    } catch (e) {}
-  </script>
+  <link rel="stylesheet" href="site.css?v=9f9559e9">
+  <script src="site.js?v=327b4193"></script>
 </head>
 <body>
 <main>
   <header>
     <h1>Tägliche Aufgaben 15.11.2026</h1>
     <div class="buttons">
-<a class="button" href="archive.html">Archiv</a>      <button id="columns" class="button" type="button" title="Spalten umschalten">Auto</button>
+      <span class="split" hidden>
+        <button id="autoreload" class="button" type="button" aria-pressed="false"
+                title="Automatisch neu laden an/aus">↻ aus</button>
+        <button id="autoreload-interval" class="button" type="button"
+                title="Wartezeit ändern">60 s</button>
+      </span>
+<a class="button" href="archive.html">Archiv</a>      <button id="columns" class="button" type="button" title="Spalten umschalten" hidden>Auto</button>
     </div>
   </header>
   <p class="legend">Haken bei Gegenständen: 1. hergestellt / habe ich, 2. abgegeben</p>
@@ -236,47 +201,5 @@
   </div>
   </div>
 </main>
-<script>
-  // Column mode: auto (by screen width), 1 or 2; kept in this browser for all days.
-  const modes = [["auto", "Auto"], ["1", "1 Spalte"], ["2", "2 Spalten"]];
-  const columns = document.getElementById("columns");
-  function showColumns(mode) {
-    if (mode === "auto") delete document.documentElement.dataset.columns;
-    else document.documentElement.dataset.columns = mode;
-    columns.textContent = (modes.find(([m]) => m === mode) || modes[0])[1];
-    columns.dataset.mode = mode;
-  }
-  let savedMode = "auto";
-  try { savedMode = localStorage.getItem("loftia-dailies/columns") || "auto"; } catch (e) {}
-  showColumns(modes.some(([m]) => m === savedMode) ? savedMode : "auto");
-  columns.addEventListener("click", () => {
-    const index = modes.findIndex(([m]) => m === columns.dataset.mode);
-    const mode = modes[(index + 1) % modes.length][0];
-    showColumns(mode);
-    try { localStorage.setItem("loftia-dailies/columns", mode); } catch (e) {}
-  });
-  // Ticks are only a temporary help: kept in this browser, per day.
-  const prefix = "loftia-dailies/2026-11-15/";
-  for (const box of document.querySelectorAll("input[data-key]")) {
-    const key = prefix + box.dataset.key;
-    try { box.checked = localStorage.getItem(key) === "1"; } catch (e) {}
-    box.addEventListener("change", () => {
-      try { box.checked ? localStorage.setItem(key, "1") : localStorage.removeItem(key); } catch (e) {}
-    });
-  }
-
-  // Delivered implies made; taking back made also takes back delivered.
-  function tick(box, checked) {
-    if (box.checked === checked) return;
-    box.checked = checked;
-    box.dispatchEvent(new Event("change"));
-  }
-  for (const item of document.querySelectorAll("li.item")) {
-    const made = item.querySelector(".made");
-    const delivered = item.querySelector(".delivered");
-    delivered.addEventListener("change", () => { if (delivered.checked) tick(made, true); });
-    made.addEventListener("change", () => { if (!made.checked) tick(delivered, false); });
-  }
-</script>
 </body>
 </html>

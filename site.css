@@ -1,0 +1,42 @@
+/* Look of all pages. Light and dark follow the system setting. */
+:root { --bg: #f4f7f2; --card: #ffffff; --text: #263a33; --muted: #6b7f77; --accent: #4f8a74; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #17201d; --card: #212d29; --text: #e3ece8; --muted: #93a69f; --accent: #7cc2a6; }
+}
+body { margin: 0; padding: 16px; background: var(--bg); color: var(--text);
+       font: 16px/1.5 system-ui, sans-serif; }
+main { max-width: 40rem; margin: 0 auto; }
+header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 0 1rem; }
+h1 { font-size: 1.4rem; margin: 0 0 1rem; }
+h2 { font-size: 1.15rem; margin: 0 0 .5rem; color: var(--accent); }
+.blocks { display: grid; grid-template-columns: 1fr; gap: 1.5rem; align-items: start; }
+/* Two columns: automatically on wide screens, or when chosen with the switch. */
+@media (min-width: 60rem) {
+  :root:not([data-columns="1"]) main { max-width: 80rem; }
+  :root:not([data-columns="1"]) .blocks { grid-template-columns: 1fr 1fr; }
+}
+:root[data-columns="2"] main { max-width: 80rem; }
+:root[data-columns="2"] .blocks { grid-template-columns: 1fr 1fr; }
+[hidden] { display: none !important; }
+.buttons { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: .5rem; margin-bottom: .75rem; }
+/* Auto reload: switch and waiting time joined into one button. */
+.split { display: flex; }
+.split .button:first-child { border-radius: 999px 0 0 999px; min-width: 4.2em; }
+.split .button:last-child { border-radius: 0 999px 999px 0; border-left-style: dotted; }
+.button { font-variant-numeric: tabular-nums; }
+.button[aria-pressed="true"] { background: var(--accent); color: var(--card); }
+.button { font: inherit; font-size: .85rem; padding: .3rem .7rem; border-radius: 999px; cursor: pointer;
+          border: 1px solid var(--accent); background: var(--card); color: var(--accent); white-space: nowrap;
+          text-decoration: none; line-height: 1.5; }
+h3 { font-size: 1rem; margin: 0 0 .25rem; }
+section.area, section.note { background: var(--card); border-radius: 10px; padding: .75rem 1rem; margin-bottom: .75rem; }
+ul { list-style: none; margin: 0; padding: 0; }
+label { display: flex; gap: .6rem; align-items: baseline; padding: .15rem 0; cursor: pointer; }
+input:checked + span { text-decoration: line-through; color: var(--muted); }
+li.item { display: flex; gap: .6rem; align-items: baseline; padding: .15rem 0; }
+li.item:has(.made:checked) span { color: var(--accent); }
+li.item:has(.delivered:checked) span { text-decoration: line-through; color: var(--muted); }
+.legend { font-size: .85rem; color: var(--muted); margin: -.5rem 0 1rem; }
+.hint { color: var(--muted); }
+.days { display: flex; flex-wrap: wrap; gap: .4rem .9rem; }
+.days a { color: var(--accent); }
