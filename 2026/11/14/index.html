@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Loftia Dailies 14.11.2026</title>
+  <style>
+    :root { --bg: #f4f7f2; --card: #ffffff; --text: #263a33; --muted: #6b7f77; --accent: #4f8a74; }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg: #17201d; --card: #212d29; --text: #e3ece8; --muted: #93a69f; --accent: #7cc2a6; }
+    }
+    body { margin: 0; padding: 16px; background: var(--bg); color: var(--text);
+           font: 16px/1.5 system-ui, sans-serif; }
+    main { max-width: 40rem; margin: 0 auto; }
+    header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 0 1rem; }
+    h1 { font-size: 1.4rem; margin: 0 0 1rem; }
+    h2 { font-size: 1.15rem; margin: 0 0 .5rem; color: var(--accent); }
+    .blocks { display: grid; grid-template-columns: 1fr; gap: 1.5rem; align-items: start; }
+    /* Two columns: automatically on wide screens, or when chosen with the switch. */
+    @media (min-width: 60rem) {
+      :root:not([data-columns="1"]) main { max-width: 80rem; }
+      :root:not([data-columns="1"]) .blocks { grid-template-columns: 1fr 1fr; }
+    }
+    :root[data-columns="2"] main { max-width: 80rem; }
+    :root[data-columns="2"] .blocks { grid-template-columns: 1fr 1fr; }
+    .buttons { display: flex; gap: .5rem; }
+    .button { font: inherit; font-size: .85rem; padding: .3rem .7rem; border-radius: 999px; cursor: pointer;
+              border: 1px solid var(--accent); background: var(--card); color: var(--accent); white-space: nowrap;
+              text-decoration: none; line-height: 1.5; }
+    h3 { font-size: 1rem; margin: 0 0 .25rem; }
+    section.area, section.note { background: var(--card); border-radius: 10px; padding: .75rem 1rem; margin-bottom: .75rem; }
+    ul { list-style: none; margin: 0; padding: 0; }
+    label { display: flex; gap: .6rem; align-items: baseline; padding: .15rem 0; cursor: pointer; }
+    input:checked + span { text-decoration: line-through; color: var(--muted); }
+    li.item { display: flex; gap: .6rem; align-items: baseline; padding: .15rem 0; }
+    li.item:has(.made:checked) span { color: var(--accent); }
+    li.item:has(.delivered:checked) span { text-decoration: line-through; color: var(--muted); }
+    .legend { font-size: .85rem; color: var(--muted); margin: -.5rem 0 1rem; }
+    .hint { color: var(--muted); }
+    .days { display: flex; flex-wrap: wrap; gap: .4rem .9rem; }
+    .days a { color: var(--accent); }
+  </style>
+  <script>
+    // Apply the saved column mode before the page is drawn, so it does not jump on reload.
+    try {
+      const mode = localStorage.getItem("loftia-dailies/columns");
+      if (mode === "1" || mode === "2") document.documentElement.dataset.columns = mode;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Tägliche Aufgaben 14.11.2026</h1>
+    <div class="buttons">
+<a class="button" href="../../../archive.html">Archiv</a>      <button id="columns" class="button" type="button" title="Spalten umschalten">Auto</button>
+    </div>
+  </header>
+  <p class="legend">Haken bei Gegenständen: 1. hergestellt / habe ich, 2. abgegeben</p>
+
+  <div class="blocks">
+  <div class="block">
+  <section class="note">
+    <h3>Kiste</h3>
+    <ul>
+<li><label><input type="checkbox" data-key="note/Kiste/Insel"><span>Insel</span></label></li>
+<li><label><input type="checkbox" data-key="note/Kiste/Insel (Schatz)"><span>Insel (Schatz)</span></label></li>
+<li><label><input type="checkbox" data-key="note/Kiste/Schwimmendes Dorf St2 (Mitte Insel)"><span>Schwimmendes Dorf St2 (Mitte Insel)</span></label></li>
+<li><label><input type="checkbox" data-key="note/Kiste/Loftia (Eingang Station)"><span>Loftia (Eingang Station)</span></label></li>
+    </ul>
+  </section>
+  <section class="area">
+    <h3>Weltprojekt <span class="hint">(Bot in der Kuppel)</span></h3>
+    <ul>
+<li class="item">
+  <input type="checkbox" class="made" data-key="weltprojekt/Bananencurry/made" title="hergestellt / habe ich" aria-label="hergestellt / habe ich">
+  <input type="checkbox" class="delivered" data-key="weltprojekt/Bananencurry/delivered" title="abgegeben" aria-label="abgegeben">
+  <span>4x Bananencurry</span>
+</li>
+<li class="item">
+  <input type="checkbox" class="made" data-key="weltprojekt/Pilzsuppe/made" title="hergestellt / habe ich" aria-label="hergestellt / habe ich">
+  <input type="checkbox" class="delivered" data-key="weltprojekt/Pilzsuppe/delivered" title="abgegeben" aria-label="abgegeben">
+  <span>4x Pilzsuppe</span>
+</li>
+    </ul>
+  </section>
+  </div>
+
+  <div class="block">
+  <h2>Loftia</h2>
+    <section class="area">
+    <h3>Hilfskiste im Weltdorf St1 <span class="hint">(bei Kun)</span></h3>
+    <ul>
+<li class="item">
+  <input type="checkbox" class="made" data-key="weltdorf-st1/Karottensuppe/made" title="hergestellt / habe ich" aria-label="hergestellt / habe ich">
+  <input type="checkbox" class="delivered" data-key="weltdorf-st1/Karottensuppe/delivered" title="abgegeben" aria-label="abgegeben">
+  <span>1x Karottensuppe</span>
+</li>
+<li class="item">
+  <input type="checkbox" class="made" data-key="weltdorf-st1/Kartoffelsuppe/made" title="hergestellt / habe ich" aria-label="hergestellt / habe ich">
+  <input type="checkbox" class="delivered" data-key="weltdorf-st1/Kartoffelsuppe/delivered" title="abgegeben" aria-label="abgegeben">
+  <span>1x Kartoffelsuppe</span>
+</li>
+    </ul>
+  </section>
+
+    <section class="area">
+    <h3>Hilfskiste im Weltdorf St2 <span class="hint">(Richtung Bahn)</span></h3>
+    <ul>
+<li class="item">
+  <input type="checkbox" class="made" data-key="weltdorf-st2/Tajine mit Aubergine/made" title="hergestellt / habe ich" aria-label="hergestellt / habe ich">
+  <input type="checkbox" class="delivered" data-key="weltdorf-st2/Tajine mit Aubergine/delivered" title="abgegeben" aria-label="abgegeben">
+  <span>1x Tajine mit Aubergine <span class="hint">(Kreuzkümmel)</span></span>
+</li>
+<li class="item">
+  <input type="checkbox" class="made" data-key="weltdorf-st2/Ratatouille/made" title="hergestellt / habe ich" aria-label="hergestellt / habe ich">
+  <input type="checkbox" class="delivered" data-key="weltdorf-st2/Ratatouille/delivered" title="abgegeben" aria-label="abgegeben">
+  <span>1x Ratatouille</span>
+</li>
+    </ul>
+  </section>
+
+    <section class="area">
+    <h3>Hilfskiste im Weltdorf St3 <span class="hint">(Schrottbezirk)</span></h3>
+    <ul>
+<li class="item">
+  <input type="checkbox" class="made" data-key="weltdorf-st3/Misosuppe/made" title="hergestellt / habe ich" aria-label="hergestellt / habe ich">
+  <input type="checkbox" class="delivered" data-key="weltdorf-st3/Misosuppe/delivered" title="abgegeben" aria-label="abgegeben">
+  <span>1x Misosuppe</span>
+</li>
+<li class="item">
+  <input type="checkbox" class="made" data-key="weltdorf-st3/Gyoza mit Austernpilzen/made" title="hergestellt / habe ich" aria-label="hergestellt / habe ich">
+  <input type="checkbox" class="delivered" data-key="weltdorf-st3/Gyoza mit Austernpilzen/delivered" title="abgegeben" aria-label="abgegeben">
+  <span>1x Gyoza mit Austernpilzen</span>
+</li>
+    </ul>
+  </section>
+
+  </div>
+  <div class="block">
+  <h2>Hängende Gärten</h2>
+    <section class="area">
+    <h3>Hilfskiste im Schwimmenden Dorf St1 <span class="hint">(Kassim)</span></h3>
+    <ul>
+<li class="item">
+  <input type="checkbox" class="made" data-key="schwimmendes-dorf-st1/Maifisch/made" title="hergestellt / habe ich" aria-label="hergestellt / habe ich">
+  <input type="checkbox" class="delivered" data-key="schwimmendes-dorf-st1/Maifisch/delivered" title="abgegeben" aria-label="abgegeben">
+  <span>4x Maifisch</span>
+</li>
+<li class="item">
+  <input type="checkbox" class="made" data-key="schwimmendes-dorf-st1/Regenbogenforelle/made" title="hergestellt / habe ich" aria-label="hergestellt / habe ich">
+  <input type="checkbox" class="delivered" data-key="schwimmendes-dorf-st1/Regenbogenforelle/delivered" title="abgegeben" aria-label="abgegeben">
+  <span>2x Regenbogenforelle</span>
+</li>
+    </ul>
+  </section>
+
+    <section class="area">
+    <h3>Hilfskiste im Schwimmenden Dorf St2 <span class="hint">(Mitte Insel)</span></h3>
+    <ul>
+<li class="item">
+  <input type="checkbox" class="made" data-key="schwimmendes-dorf-st2/Echte Karettschildkrote/made" title="hergestellt / habe ich" aria-label="hergestellt / habe ich">
+  <input type="checkbox" class="delivered" data-key="schwimmendes-dorf-st2/Echte Karettschildkrote/delivered" title="abgegeben" aria-label="abgegeben">
+  <span>3x Echte Karettschildkrote</span>
+</li>
+<li class="item">
+  <input type="checkbox" class="made" data-key="schwimmendes-dorf-st2/Alabama-Zwergschwarzbarsch/made" title="hergestellt / habe ich" aria-label="hergestellt / habe ich">
+  <input type="checkbox" class="delivered" data-key="schwimmendes-dorf-st2/Alabama-Zwergschwarzbarsch/delivered" title="abgegeben" aria-label="abgegeben">
+  <span>3x Alabama-Zwergschwarzbarsch</span>
+</li>
+    </ul>
+  </section>
+
+    <section class="area">
+    <h3>Hilfskiste im Schwimmenden Dorf St3 <span class="hint">(Dickicht)</span></h3>
+    <ul>
+<li class="item">
+  <input type="checkbox" class="made" data-key="schwimmendes-dorf-st3/Haditha-Höhlenfisch/made" title="hergestellt / habe ich" aria-label="hergestellt / habe ich">
+  <input type="checkbox" class="delivered" data-key="schwimmendes-dorf-st3/Haditha-Höhlenfisch/delivered" title="abgegeben" aria-label="abgegeben">
+  <span>3x Haditha-Höhlenfisch</span>
+</li>
+<li class="item">
+  <input type="checkbox" class="made" data-key="schwimmendes-dorf-st3/Blindhöhlen-Brotula/made" title="hergestellt / habe ich" aria-label="hergestellt / habe ich">
+  <input type="checkbox" class="delivered" data-key="schwimmendes-dorf-st3/Blindhöhlen-Brotula/delivered" title="abgegeben" aria-label="abgegeben">
+  <span>2x Blindhöhlen-Brotula</span>
+</li>
+    </ul>
+  </section>
+
+  </div>
+  <div class="block">
+  <h2>Kluftheim</h2>
+    <section class="area">
+    <h3>Hilfskiste beim Museum St1 <span class="hint">(Museum)</span></h3>
+    <ul>
+<li class="item">
+  <input type="checkbox" class="made" data-key="museum-st1/Alte Lavalampe/made" title="hergestellt / habe ich" aria-label="hergestellt / habe ich">
+  <input type="checkbox" class="delivered" data-key="museum-st1/Alte Lavalampe/delivered" title="abgegeben" aria-label="abgegeben">
+  <span>1x Alte Lavalampe</span>
+</li>
+<li class="item">
+  <input type="checkbox" class="made" data-key="museum-st1/Makelloser Rätselwurfel/made" title="hergestellt / habe ich" aria-label="hergestellt / habe ich">
+  <input type="checkbox" class="delivered" data-key="museum-st1/Makelloser Rätselwurfel/delivered" title="abgegeben" aria-label="abgegeben">
+  <span>2x Makelloser Rätselwurfel</span>
+</li>
+    </ul>
+  </section>
+
+    <section class="area">
+    <h3>Hilfskiste beim Museum St2 <span class="hint">(Spielplatz)</span></h3>
+    <ul>
+<li class="item">
+  <input type="checkbox" class="made" data-key="museum-st2/Altes Spielmodul/made" title="hergestellt / habe ich" aria-label="hergestellt / habe ich">
+  <input type="checkbox" class="delivered" data-key="museum-st2/Altes Spielmodul/delivered" title="abgegeben" aria-label="abgegeben">
+  <span>2x Altes Spielmodul</span>
+</li>
+<li class="item">
+  <input type="checkbox" class="made" data-key="museum-st2/Makelloses Püppchen/made" title="hergestellt / habe ich" aria-label="hergestellt / habe ich">
+  <input type="checkbox" class="delivered" data-key="museum-st2/Makelloses Püppchen/delivered" title="abgegeben" aria-label="abgegeben">
+  <span>2x Makelloses Püppchen</span>
+</li>
+    </ul>
+  </section>
+
+    <section class="area">
+    <h3>Hilfskiste beim Museum St3 <span class="hint">(Betonschungel)</span></h3>
+    <ul>
+<li class="item">
+  <input type="checkbox" class="made" data-key="museum-st3/Makellose Diskette/made" title="hergestellt / habe ich" aria-label="hergestellt / habe ich">
+  <input type="checkbox" class="delivered" data-key="museum-st3/Makellose Diskette/delivered" title="abgegeben" aria-label="abgegeben">
+  <span>2x Makellose Diskette</span>
+</li>
+<li class="item">
+  <input type="checkbox" class="made" data-key="museum-st3/Alter Walkboy/made" title="hergestellt / habe ich" aria-label="hergestellt / habe ich">
+  <input type="checkbox" class="delivered" data-key="museum-st3/Alter Walkboy/delivered" title="abgegeben" aria-label="abgegeben">
+  <span>4x Alter Walkboy</span>
+</li>
+    </ul>
+  </section>
+
+  </div>
+  </div>
+</main>
+<script>
+  // Column mode: auto (by screen width), 1 or 2; kept in this browser for all days.
+  const modes = [["auto", "Auto"], ["1", "1 Spalte"], ["2", "2 Spalten"]];
+  const columns = document.getElementById("columns");
+  function showColumns(mode) {
+    if (mode === "auto") delete document.documentElement.dataset.columns;
+    else document.documentElement.dataset.columns = mode;
+    columns.textContent = (modes.find(([m]) => m === mode) || modes[0])[1];
+    columns.dataset.mode = mode;
+  }
+  let savedMode = "auto";
+  try { savedMode = localStorage.getItem("loftia-dailies/columns") || "auto"; } catch (e) {}
+  showColumns(modes.some(([m]) => m === savedMode) ? savedMode : "auto");
+  columns.addEventListener("click", () => {
+    const index = modes.findIndex(([m]) => m === columns.dataset.mode);
+    const mode = modes[(index + 1) % modes.length][0];
+    showColumns(mode);
+    try { localStorage.setItem("loftia-dailies/columns", mode); } catch (e) {}
+  });
+  // Ticks are only a temporary help: kept in this browser, per day.
+  const prefix = "loftia-dailies/2026-11-14/";
+  for (const box of document.querySelectorAll("input[data-key]")) {
+    const key = prefix + box.dataset.key;
+    try { box.checked = localStorage.getItem(key) === "1"; } catch (e) {}
+    box.addEventListener("change", () => {
+      try { box.checked ? localStorage.setItem(key, "1") : localStorage.removeItem(key); } catch (e) {}
+    });
+  }
+
+  // Delivered implies made; taking back made also takes back delivered.
+  function tick(box, checked) {
+    if (box.checked === checked) return;
+    box.checked = checked;
+    box.dispatchEvent(new Event("change"));
+  }
+  for (const item of document.querySelectorAll("li.item")) {
+    const made = item.querySelector(".made");
+    const delivered = item.querySelector(".delivered");
+    delivered.addEventListener("change", () => { if (delivered.checked) tick(made, true); });
+    made.addEventListener("change", () => { if (!made.checked) tick(delivered, false); });
+  }
+</script>
+</body>
+</html>
