@@ -72,6 +72,8 @@ function linkMadeAndDelivered() {
 // position stays, the ticks come back from localStorage. If the shared style
 // or script changed, the page is reloaded fully instead.
 // The left part switches on/off, the right part steps through the waiting times.
+// Once every area of the day has its screenshot (data-complete), nothing new can
+// come: auto reload switches itself off for good; switching it on again is up to you.
 
 const INTERVALS = [60, 300, 10, 30]; // the order of the steps when clicked
 const DEFAULT_INTERVAL = 60;
@@ -116,8 +118,11 @@ async function swapInNewPage() {
   const day = fresh.documentElement.dataset.day;
   if (day) document.documentElement.dataset.day = day;
   else delete document.documentElement.dataset.day;
+  if (fresh.documentElement.hasAttribute("data-complete")) document.documentElement.dataset.complete = "";
+  else delete document.documentElement.dataset.complete;
   document.querySelector("main").replaceWith(fresh.querySelector("main"));
   setUpPage();
+  switchOffWhenComplete();
 }
 
 async function checkForChange() {
@@ -164,16 +169,26 @@ function stopAutoReload() {
   autoReload.timer = null;
 }
 
+function switchAutoReload(on) {
+  autoReload.on = on;
+  save(AUTORELOAD_KEY, on ? "on" : null);
+  on ? startAutoReload() : stopAutoReload();
+  showAutoReload();
+}
+
+function dayIsComplete() {
+  return document.documentElement.hasAttribute("data-complete");
+}
+
+function switchOffWhenComplete() {
+  if (autoReload.on && dayIsComplete()) switchAutoReload(false);
+}
+
 function setUpAutoReload() {
   const toggle = document.getElementById("autoreload");
   const interval = document.getElementById("autoreload-interval");
   toggle.parentElement.hidden = false; // shown only when JavaScript runs
-  toggle.addEventListener("click", () => {
-    autoReload.on = !autoReload.on;
-    save(AUTORELOAD_KEY, autoReload.on ? "on" : null);
-    autoReload.on ? startAutoReload() : stopAutoReload();
-    showAutoReload();
-  });
+  toggle.addEventListener("click", () => switchAutoReload(!autoReload.on));
   interval.addEventListener("click", () => {
     autoReload.interval = INTERVALS[(INTERVALS.indexOf(autoReload.interval) + 1) % INTERVALS.length];
     autoReload.remaining = autoReload.interval;
@@ -205,6 +220,7 @@ function setUpPage() {
 
 applyColumns(load(COLUMNS_KEY));
 document.addEventListener("DOMContentLoaded", () => {
-  if (autoReload.on) startAutoReload();
+  if (autoReload.on && !dayIsComplete()) startAutoReload();
   setUpPage();
+  switchOffWhenComplete();
 });
