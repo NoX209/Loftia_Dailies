@@ -1,7 +1,7 @@
 /* Look of all pages. Light and dark follow the system setting. */
-:root { --bg: #f4f7f2; --card: #ffffff; --text: #263a33; --muted: #6b7f77; --accent: #4f8a74; }
+:root { --bg: #f4f7f2; --card: #ffffff; --text: #263a33; --muted: #6b7f77; --faint: #9a9a9a; --accent: #4f8a74; }
 @media (prefers-color-scheme: dark) {
-  :root { --bg: #17201d; --card: #212d29; --text: #e3ece8; --muted: #93a69f; --accent: #7cc2a6; }
+  :root { --bg: #17201d; --card: #212d29; --text: #e3ece8; --muted: #93a69f; --faint: #7d7d7d; --accent: #7cc2a6; }
 }
 body { margin: 0; padding: 16px; background: var(--bg); color: var(--text);
        font: 16px/1.5 system-ui, sans-serif; }
@@ -38,5 +38,7 @@ li.item:has(.made:checked) span { color: var(--accent); }
 li.item:has(.delivered:checked) span { text-decoration: line-through; color: var(--muted); }
 .legend { font-size: .85rem; color: var(--muted); margin: -.5rem 0 1rem; }
 .hint { color: var(--muted); }
+section.area.unseen { outline: 1px dashed var(--faint); outline-offset: -1px; }
+.pending { color: var(--faint); font-style: italic; margin: .25rem 0 0; }
 .days { display: flex; flex-wrap: wrap; gap: .4rem .9rem; }
 .days a { color: var(--accent); }
